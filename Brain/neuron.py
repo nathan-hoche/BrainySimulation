@@ -26,7 +26,7 @@ class neuron:
         self.updateWeight(output, outputExpected, inputList)
 
     #################### Test ####################
-    def test(self, inputList: list[float]) -> float:
+    def calc(self, inputList: list[float]) -> float:
         Z = self.bias * self.weight[-1]
         for i in range(len(inputList)):
             Z += inputList[i] * self.weight[i]
