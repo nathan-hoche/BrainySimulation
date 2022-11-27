@@ -22,8 +22,12 @@ class layers():
         return self.output
     
     def updateWeight(self, outputExpected: float) -> None:
-        for i in range(len(self.neurons)):
-            self.neurons[i].updateWeight(self.output[i], outputExpected, self.inputList)
+        if type(outputExpected) is list:
+            for i in range(len(self.neurons)):
+                self.neurons[i].updateWeight(self.output[i], outputExpected[i], self.inputList)
+        else:
+            for i in range(len(self.neurons)):
+                self.neurons[i].updateWeight(self.output[i], outputExpected, self.inputList)
         
     def printWeight(self) -> None:
         self.neurons[0].printWeight()
@@ -44,7 +48,7 @@ class network():
         output = inputList
         for layer in self.layers:
             output = layer.calc(output)
-        return output[0]
+        return output
     
     def train(self, inputList: list[float], outputExpected: float) -> None:
         self.calc(inputList)

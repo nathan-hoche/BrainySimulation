@@ -36,12 +36,53 @@ def simpleNetwork(trainingTime:int, toTest:list[dict]):
 
     x = 0
     for i in toTest:
-        if (network1.calc(i["input"]) == i["value"]):
+        if (network1.calc(i["input"])[0] == i["value"]):
             x += 1
     print("Success rate:", x/len(toTest) *100, "%")
+
+def patternRecognization(trainingTime:int):
+
+    def readDir():
+        dir = os.listdir("Test/numbers")
+        All_Test = {}
+        for file in dir:
+            if file.find(".txt") != -1:
+                with open("Test/numbers/" + file, "r") as f:
+                    fc = f.read().replace("_", "0").replace("#", "1").replace("\n", '')
+                    inputList = [*fc]
+                    for i in range(len(inputList)):
+                        inputList[i] = int(inputList[i])
+                    All_Test[int(file.replace(".txt", ''))] = inputList
+        return All_Test
+    
+    network1 = network()
+    network1.addNewLayer(Activation.sigmoid, Gradient.basic, 10, 25)
+    # Doit ajouter une couche de neuron pour les classification
+    inputList = readDir()
+
+    for i in range(100):
+        network1.train(inputList[0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        network1.train(inputList[1], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0])
+        network1.train(inputList[2], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0])
+        network1.train(inputList[3], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0])
+        network1.train(inputList[4], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0])
+        network1.train(inputList[5], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0])
+        network1.train(inputList[6], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0])
+        network1.train(inputList[7], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0])
+        network1.train(inputList[8], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0])
+        network1.train(inputList[9], [0 ,0, 0, 0, 0, 0, 0, 0, 0, 1])
+
+    x = 0
+    for x in range(10):
+        res = network1.calc(inputList[x])
+        if (res.index(max(res)) == x):
+            x += 1
+    print("Success rate:", x/len(inputList) * 100, "%")
 
 
 print("Only a neuron:", end="\n\t")
 onlyANeuron(1000, [{"input":[0, 1], "value": 1}, {"input":[1, 0], "value": 1}, {"input":[1, 1], "value": 1}, {"input":[0, 0], "value": 0}])
 print("Simple network:", end="\n\t")
 simpleNetwork(1000, [{"input":[0, 0, 0, 0], "value": 0}, {"input":[0, 0, 0, 1], "value": 1}, {"input":[0, 0, 1, 0], "value": 1}, {"input":[1, 1, 1, 1], "value": 1}, {"input":[1, 0, 0, 0], "value": 1}, {"input":[1, 0, 0, 1], "value": 1}])
+print("Pattern recognization:", end="\n\t")
+patternRecognization(100)
