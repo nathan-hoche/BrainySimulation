@@ -44,13 +44,12 @@ class network():
         output = inputList
         for layer in self.layers:
             output = layer.calc(output)
-        return output
+        return output[0]
     
-    def train(self, inputList: list[float], outputExpected: list[float]) -> None:
-        output = self.calc(inputList)
+    def train(self, inputList: list[float], outputExpected: float) -> None:
+        self.calc(inputList)
         for layer in reversed(self.layers):
-            for i in range(len(outputExpected)):
-                layer.updateWeight(outputExpected[i])
+            layer.updateWeight(outputExpected)
     
     def printWeight(self):
         self.layers[0].printWeight()
