@@ -1,4 +1,3 @@
-import math
 import numpy as np
 
 # Pour en rajouter : https://www.v7labs.com/blog/neural-networks-activation-functions
