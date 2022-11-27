@@ -1,5 +1,7 @@
 from Brain.neuron import neuron
 
+# https://machinelearningmastery.com/implement-backpropagation-algorithm-scratch-python/
+
 class layers():
     def __init__(self, actFunc, lossFunc, nbNeuron, nbInput) -> None:
         self.output = []
@@ -22,6 +24,9 @@ class layers():
     def updateWeight(self, outputExpected: float) -> None:
         for i in range(len(self.neurons)):
             self.neurons[i].updateWeight(self.output[i], outputExpected, self.inputList)
+        
+    def printWeight(self) -> None:
+        self.neurons[0].printWeight()
 
 
 class network():
@@ -41,7 +46,11 @@ class network():
             output = layer.calc(output)
         return output
     
-    def train(self, inputList: list[float], outputExpected: float) -> None:
+    def train(self, inputList: list[float], outputExpected: list[float]) -> None:
         output = self.calc(inputList)
         for layer in reversed(self.layers):
-            layer.updateWeight(outputExpected)
+            for i in range(len(outputExpected)):
+                layer.updateWeight(outputExpected[i])
+    
+    def printWeight(self):
+        self.layers[0].printWeight()
