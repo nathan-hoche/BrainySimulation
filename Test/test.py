@@ -52,7 +52,10 @@ def patternRecognization(trainingTime:int):
                     inputList = [*fc]
                     for i in range(len(inputList)):
                         inputList[i] = int(inputList[i])
-                    All_Test[int(file.replace(".txt", ''))] = inputList
+                    try:
+                        All_Test[int(file.replace(".txt", ''))] = inputList
+                    except:
+                        All_Test[file.replace(".txt", '')] = inputList
         return All_Test
     
     network1 = network()
@@ -60,7 +63,7 @@ def patternRecognization(trainingTime:int):
     # Doit ajouter une couche de neuron pour les classification
     inputList = readDir()
 
-    for i in range(100):
+    for _ in range(100):
         network1.train(inputList[0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         network1.train(inputList[1], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0])
         network1.train(inputList[2], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0])
@@ -73,11 +76,26 @@ def patternRecognization(trainingTime:int):
         network1.train(inputList[9], [0 ,0, 0, 0, 0, 0, 0, 0, 0, 1])
 
     x = 0
+    mx = 0
     for x in range(10):
         res = network1.calc(inputList[x])
         if (res.index(max(res)) == x):
             x += 1
-    print("Success rate:", x/len(inputList) * 100, "%")
+        mx += 1
+    print("Success rate:", x/mx * 100, "%", end="\n\t")
+
+    x = 0
+    res = network1.calc(inputList["3-broken"])
+    if (res.index(max(res)) == 3):
+        x += 1
+    res = network1.calc(inputList["4-broken"])
+    if (res.index(max(res)) == 4):
+        x += 1
+    res = network1.calc(inputList["6-broken"])
+    if (res.index(max(res)) == 6):
+        x += 1
+    print("Broken Success rate:", x/3 * 100, "%")
+
 
 
 print("Only a neuron:", end="\n\t")

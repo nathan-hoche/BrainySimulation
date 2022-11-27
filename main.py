@@ -17,7 +17,10 @@ def readDir():
                 inputList = [*fc]
                 for i in range(len(inputList)):
                     inputList[i] = int(inputList[i])
-                All_Test[int(file.replace(".txt", ''))] = inputList
+                try:
+                    All_Test[int(file.replace(".txt", ''))] = inputList
+                except:
+                    All_Test[file.replace(".txt", '')] = inputList
     return All_Test
 
 # https://www.frontiersin.org/articles/10.3389/fnins.2021.690418/full
@@ -43,3 +46,6 @@ network1.printWeight()
 for x in range(10):
     res = network1.calc(inputList[x])
     print("Test", x, ":", res.index(max(res)))
+
+res = network1.calc(inputList["4-broken"])
+print("Test 4-broken", ":", res.index(max(res)))
