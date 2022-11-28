@@ -12,24 +12,24 @@ python3 main.py [sample]
 # List of content:
 
 ## Sample
-[x] basciNeuron
-[x] basicNetwork
-[x] patternRecognition
+- [x] basciNeuron
+- [x] basicNetwork
+- [x] patternRecognition
 
 ## Activation
-[x] Basic Activation
-[x] Sigmoid
-[x] Tanh
-[x] ReLU
-[ ] LeakyReLU
-[ ] Softmax
+- [x] Basic Activation
+- [x] Sigmoid
+- [x] Tanh
+- [x] ReLU
+- [ ] LeakyReLU
+- [ ] Softmax
 
 ## Gradient
-[x] Basic Gradient
-[ ] Momentum
-[ ] Nesterov
-[ ] Adagrad
-[ ] RMSprop
+- [x] Basic Gradient
+- [ ] Momentum
+- [ ] Nesterov
+- [ ] Adagrad
+- [ ] RMSprop
 
 
 # How to use this project:
