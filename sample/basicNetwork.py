@@ -1,4 +1,3 @@
-from Brain.neuron import neuron
 from Brain.utils import Activation
 from Brain.utils import Gradient
 from Brain.network import network
