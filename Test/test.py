@@ -21,7 +21,7 @@ def onlyANeuron(trainingTime:int, toTest:list[dict]):
     for i in toTest:
         if (neuron1.calc(i["input"]) == i["value"]):
             x += 1
-    print("Success rate:", x/len(toTest) *100, "%")
+    print("Success rate:\t\t", x/len(toTest) *100, "%")
 
 def simpleNetwork(trainingTime:int, toTest:list[dict]):
     network1 = network()
@@ -38,7 +38,7 @@ def simpleNetwork(trainingTime:int, toTest:list[dict]):
     for i in toTest:
         if (network1.calc(i["input"])[0] == i["value"]):
             x += 1
-    print("Success rate:", x/len(toTest) *100, "%")
+    print("Success rate:\t\t", x/len(toTest) *100, "%")
 
 def patternRecognization(trainingTime:int):
 
@@ -63,7 +63,7 @@ def patternRecognization(trainingTime:int):
     # Doit ajouter une couche de neuron pour les classification
     inputList = readDir()
 
-    for _ in range(100):
+    for _ in range(trainingTime):
         network1.train(inputList[0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         network1.train(inputList[1], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0])
         network1.train(inputList[2], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0])
@@ -82,7 +82,7 @@ def patternRecognization(trainingTime:int):
         if (res.index(max(res)) == x):
             x += 1
         mx += 1
-    print("Success rate:", x/mx * 100, "%", end="\n\t")
+    print("Success rate:\t\t", x/mx * 100, "%", end="\n\t")
 
     x = 0
     res = network1.calc(inputList["3-broken"])
@@ -94,7 +94,7 @@ def patternRecognization(trainingTime:int):
     res = network1.calc(inputList["6-broken"])
     if (res.index(max(res)) == 6):
         x += 1
-    print("Broken Success rate:", x/3 * 100, "%")
+    print("Broken Success rate:\t", x/3 * 100, "%")
 
 
 

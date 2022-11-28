@@ -9,6 +9,11 @@ class sample():
     def train(self, isTest:bool=False):
         if isTest == True:
             return
+        print("Training Values:")
+        print("\t[1, 1] -> 1")
+        print("\t[1, 0] -> 1")
+        print("\t[0, 1] -> 1")
+        print("\t[0, 0] -> 0")
         for _ in range(1000):
             self.neuron.train([1, 1], 1)
             self.neuron.train([1, 0], 1)
