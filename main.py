@@ -1,51 +1,39 @@
-from Brain.neuron import neuron
-from Brain.utils import Activation
-from Brain.utils import Gradient
-from Brain.network import network
-
-
-##### Number Identification ######
 import os
+import sys
+import importlib
 
-def readDir():
-    dir = os.listdir("Test/numbers")
-    All_Test = {}
-    for file in dir:
-        if file.find(".txt") != -1:
-            with open("Test/numbers/" + file, "r") as f:
-                fc = f.read().replace("_", "0").replace("#", "1").replace("\n", '')
-                inputList = [*fc]
-                for i in range(len(inputList)):
-                    inputList[i] = int(inputList[i])
-                try:
-                    All_Test[int(file.replace(".txt", ''))] = inputList
-                except:
-                    All_Test[file.replace(".txt", '')] = inputList
-    return All_Test
+######## Loading Part ########
 
-# https://www.frontiersin.org/articles/10.3389/fnins.2021.690418/full
+def load_sample(filename: str) -> object:
+    try:
+        sys.path.append(os.getcwd() + "/sample/")
+        fd = importlib.import_module(filename.replace(".py", ""))
+        print("Load: ", filename, "found.")
+    except Exception as e:
+        print("ERROR: File", filename, "not found.")
+        print(e)
+        exit(0)
+    try:
+        classfd = fd.sample()
+        print("Load: Class found. -> ", type(classfd))
+        ####### Check if sample fonction is set
+        classfd.train(True)
+        classfd.test(True)
+        #######################################
+    except Exception as e:
+        print("ERROR: class/method crashed")
+        print(e)
+        exit(0)
+    return classfd
 
-network1 = network()
-network1.addNewLayer(Activation.sigmoid, Gradient.basic, 10, 25)
-# Doit ajouter une couche de neuron pour les classification
-inputList = readDir()
+######## Main Part ########
 
-for i in range(100):
-    network1.train(inputList[0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    network1.train(inputList[1], [0, 1, 0, 0, 0, 0, 0, 0, 0, 0])
-    network1.train(inputList[2], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0])
-    network1.train(inputList[3], [0, 0, 0, 1, 0, 0, 0, 0, 0, 0])
-    network1.train(inputList[4], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0])
-    network1.train(inputList[5], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0])
-    network1.train(inputList[6], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0])
-    network1.train(inputList[7], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0])
-    network1.train(inputList[8], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0])
-    network1.train(inputList[9], [0 ,0, 0, 0, 0, 0, 0, 0, 0, 1])
+def main():
+    if len(sys.argv) != 2:
+        print("ERROR: Invalid number of arguments.\n Usage: python3 main.py [sample]")
+        return
+    sample = load_sample(sys.argv[1])
+    sample.train()
+    sample.test()
 
-network1.printWeight()
-for x in range(10):
-    res = network1.calc(inputList[x])
-    print("Test", x, ":", res.index(max(res)))
-
-res = network1.calc(inputList["4-broken"])
-print("Test 4-broken", ":", res.index(max(res)))
+main()
