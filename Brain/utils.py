@@ -17,6 +17,3 @@ class Activation:
 class Gradient:
     def basic(outputExpected:float, output:float, input:float) -> float:
         return (outputExpected - output) * input
-
-    def reLu(outputExpected:float, output:float) -> float:
-        return outputExpected - output
