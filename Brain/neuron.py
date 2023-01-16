@@ -3,8 +3,8 @@ import numpy as np
 # https://medium.com/@sakeshpusuluri/activation-functions-and-weight-initialization-in-deep-learning-ebc326e62a5c
 
 class neuron:
-    def __init__(self, nbInput, actFunc, lossFunc) -> None:
-        self.lr = 1.0 # learning rate
+    def __init__(self, nbInput, actFunc, lossFunc, learningRate=1.0) -> None:
+        self.lr = learningRate # learning rate
         self.bias = 1
         self.weight = np.random.uniform(-1, 1, nbInput)
         self.actFunction = actFunc

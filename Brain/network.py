@@ -3,12 +3,12 @@ from Brain.neuron import neuron
 # https://machinelearningmastery.com/implement-backpropagation-algorithm-scratch-python/
 
 class layers():
-    def __init__(self, actFunc, lossFunc, nbNeuron, nbInput) -> None:
+    def __init__(self, actFunc, lossFunc, nbNeuron, nbInput, learningRate=1.0) -> None:
         self.output = []
         self.inputList = []
         self.neurons = []
         for _ in range(0, nbNeuron):
-            self.neurons.append(neuron(nbInput, actFunc, lossFunc))
+            self.neurons.append(neuron(nbInput, actFunc, lossFunc, learningRate))
         pass
 
     def size(self) -> int:
@@ -34,14 +34,15 @@ class layers():
 
 
 class network():
-    def __init__(self) -> None:
+    def __init__(self, learningRate=1.0) -> None:
         self.layers = []
+        self.learningRate = learningRate
         pass
 
     def addNewLayer(self, actFunc, lossFunc, nbNeuron, nbInput=None) -> None:
         if nbInput is None:
             nbInput = self.layers[-1].size()
-        newLayer = layers(actFunc, lossFunc, nbNeuron, nbInput)
+        newLayer = layers(actFunc, lossFunc, nbNeuron, nbInput, self.learningRate)
         self.layers.append(newLayer)
     
     def calc(self, inputList: list[float]) -> list[float]:
