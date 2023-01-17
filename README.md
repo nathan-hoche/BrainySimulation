@@ -11,26 +11,17 @@ python3 main.py [sample]
 
 # List of content:
 
-## Sample
-- [x] basciNeuron
+| Type | ACTUAL | TO ADD |
+| ------ | ------ | ------ |
+| Layer | Dense | Convolution, Pooling, Dropout | 
+| Activation | Basic, ReLu, LeakyReLu, Sigmoid, Tanh, Softmax, Softplus, Softsign, Selu, elu, exponential | |
+| Gradient | Basic, Hebbian, Oja | SGD, Adam, ... |
+
+# Sample
+- [x] basicNeuron
 - [x] basicNetwork
 - [x] patternRecognition
-
-## Activation
-- [x] Basic Activation
-- [x] Sigmoid
-- [x] Tanh
-- [x] ReLU
-- [ ] LeakyReLU
-- [ ] Softmax
-
-## Gradient
-- [x] Basic Gradient
-- [ ] Momentum
-- [ ] Nesterov
-- [ ] Adagrad
-- [ ] RMSprop
-
+- [ ] XOR
 
 # How to use this project:
 If you want to use this project, there is two way to do it:
