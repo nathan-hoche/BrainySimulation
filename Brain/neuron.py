@@ -12,10 +12,14 @@ class neuron:
         pass
 
     #################### Train ####################
-    def updateWeight(self, output: float, outputExpected: float, inputList: list[float]) -> None:
+    def updateWeight(self, output: float, outputExpected: float, inputList: list[float], velocity) -> None:
         for i in range(len(self.weight)):
-            self.weight[i] += self.lr * self.gradient(outputExpected, output, inputList[i])
-        self.bias += self.lr * self.gradient(outputExpected, output, 1)
+            tmp, v = self.gradient(outputExpected, output, inputList[i], self.lr, velocity=velocity, gradient=self.actFunction)
+            self.weight[i] += tmp
+        self.bias += np.sum(self.lr * v, axis=0)
+        
+        self.bias += self.gradient(outputExpected, output, 1, self.lr)[0]
+        return v
 
     def train(self, inputList: list[float], outputExpected: float) -> float:
         Z = np.dot(inputList, self.weight) + self.bias
@@ -26,6 +30,6 @@ class neuron:
     def calc(self, inputList: list[float]) -> float:
         Z = np.dot(inputList, self.weight) + self.bias
         return self.actFunction(Z)
-    
+
     def printWeight(self) -> None:
         print("Weight:", self.weight, "Bias:", self.bias)

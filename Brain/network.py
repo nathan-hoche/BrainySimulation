@@ -1,7 +1,5 @@
 from Brain.neuron import neuron
 
-# https://machinelearningmastery.com/implement-backpropagation-algorithm-scratch-python/
-
 class layers():
     def __init__(self, actFunc, lossFunc, nbNeuron, nbInput, learningRate=1.0) -> None:
         self.output = []
@@ -21,17 +19,18 @@ class layers():
             self.output.append(neuron.calc(inputList))
         return self.output
     
-    def updateWeight(self, outputExpected: float) -> None:
+    def updateWeight(self, outputExpected: float|list[float], velocity:list[float]) -> None:
+        v = []
         if type(outputExpected) is list:
             for i in range(len(self.neurons)):
-                self.neurons[i].updateWeight(self.output[i], outputExpected[i], self.inputList)
+                v.append(self.neurons[i].updateWeight(self.output[i], outputExpected[i], self.inputList, velocity[i]))
         else:
             for i in range(len(self.neurons)):
-                self.neurons[i].updateWeight(self.output[i], outputExpected, self.inputList)
-        
+                v.append(self.neurons[i].updateWeight(self.output[i], outputExpected, self.inputList, velocity[0]))
+        return v
+
     def printWeight(self) -> None:
         self.neurons[0].printWeight()
-
 
 class network():
     def __init__(self, learningRate=1.0) -> None:
@@ -51,10 +50,13 @@ class network():
             output = layer.calc(output)
         return output
     
-    def train(self, inputList: list[float], outputExpected: float) -> None:
+    def train(self, inputList: list[float], outputExpected: float|list[float]) -> None:
         self.calc(inputList)
+        velocity = [0]
+        if (type(outputExpected) is list):
+            velocity = [0] * len(outputExpected)
         for layer in reversed(self.layers):
-            layer.updateWeight(outputExpected)
+            velocity = layer.updateWeight(outputExpected, velocity)
     
     def printWeight(self):
         self.layers[0].printWeight()
