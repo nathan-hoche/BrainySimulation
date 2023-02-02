@@ -7,8 +7,8 @@ class sample():
         # self.AND = network()
         # self.AND.addNewLayer(Activation.basic, Gradient.basic, 1, 2)
         self.XOR = network(learningRate=0.1)
-        self.XOR.addNewLayer(Activation.sigmoid, Gradient.sgd, 16, 2)
-        self.XOR.addNewLayer(Activation.sigmoid, Gradient.sgd, 1)
+        self.XOR.addNewLayer(Activation.sigmoid, Gradient.basic, 16, 2)
+        self.XOR.addNewLayer(Activation.sigmoid, Gradient.basic, 1)
         self.XOR.printLayers()
 
     def train(self, isTest:bool=False):

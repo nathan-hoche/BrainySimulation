@@ -1,15 +1,16 @@
 import numpy as np
 
-# Pour en rajouter : https://www.v7labs.com/blog/neural-networks-activation-functions
 class Activation:
     def basic(x:float) -> float:
-        return 0 if x < 0 else 1
+        x[x <= 0] = 0
+        x[x > 0] = 1
+        return x
 
     def reLu(x:float) -> float:
         return np.maximum(0, x)
     
     def leakyReLu(x:float) -> float:
-        return 0.01 * x if x < 0 else x
+        return np.where(x > 0, x, 0.01 * x)
 
     def sigmoid(x:float) -> float:
         return 1 / (1 + np.exp(-x))
@@ -27,10 +28,12 @@ class Activation:
         return x / (1 + np.abs(x))
     
     def selu(x:float) -> float:
-        return 1.0507 * (1.67326 * x if x < 0 else x)
+        x = np.where(x > 0, x, 1.67326 * x)
+        return 1.0507 * x
     
     def elu(x:float) -> float:
-        return 1.0 * (np.exp(x) - 1 if x < 0 else x)
+        x = np.where(x > 0, x, np.exp(x) - 1)
+        return 1.0 * x
     
     def exponential(x:float) -> float:
         return np.exp(x)
@@ -45,7 +48,9 @@ class Derivative:
         return x
     
     def leakyReLu(x:float) -> float:
-        return 0.01 if x < 0 else 1
+        x[x <= 0] = 0.01
+        x[x > 0] = 1
+        return x
     
     def sigmoid(x:float) -> float:
         return x * (1 - x)
@@ -63,10 +68,14 @@ class Derivative:
         return 1 / (1 + np.abs(x)) ** 2
     
     def selu(x:float) -> float:
-        return 1.0507 * (1.67326 if x < 0 else 1)
+        x[x <= 0] = 1.67326
+        x[x > 0] = 1
+        return 1.0507 * x
     
     def elu(x:float) -> float:
-        return 1.0 * (np.exp(x) if x < 0 else 1)
+        x = np.where(x > 0, x, np.exp(x))
+        x[x > 0] = 1
+        return 1.0 * x
     
     def exponential(x:float) -> float:
         return np.exp(x)

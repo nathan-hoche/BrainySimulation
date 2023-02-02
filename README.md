@@ -23,7 +23,7 @@ For the implematation, calculus are made without numpy. It's just a simple pytho
 | Type | Done | TODO |
 | ------ | ------ | ------ |
 | Learning rule | Hebbian, Oja | |
-| Activation function | basic, reLu, leakyReLu, sigmoid, tanh, softmax, softplus, softsign, selu, elu, exponential | |
+| Activation function | basic, reLu, leakyReLu, sigmoid, tanh, softmax, softplus, softsign | selu, elu, exponential |
 | Layer | Dense | |
 
 ### List of sample:
@@ -45,7 +45,7 @@ The second version of the brain is a neural network and can be used for deep lea
 | Type | Done | TODO |
 | ------ | ------ | ------ |
 | Gradient Descent | Basic | sgd, adam, etc|
-| Activation function | reLu, sigmoid | basic, leakyReLu, tanh, softmax, softplus, softsign, selu, elu, exponential |
+| Activation function | basic, reLu, leakyReLu, sigmoid, tanh, softmax, softplus, softsign | selu, elu, exponential |
 | Layer | Dense | Flatten, Dropout, Conv2D, MaxPooling, etc |
 
 > This version is currently in development.
