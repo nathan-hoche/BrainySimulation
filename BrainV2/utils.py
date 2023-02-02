@@ -2,7 +2,7 @@ import numpy as np
 
 class Activation:
     def basic(x:float) -> float:
-        x[x <= 0] = 0
+        x[x <= 0.5] = 0
         x[x > 0] = 1
         return x
 
@@ -40,8 +40,10 @@ class Activation:
 
 class Derivative:
     def basic(x:float) -> float:
-        return 0
-    
+        x[x <= 0.5] = 0
+        x[x > 0] = 1
+        return x
+
     def reLu(x:float) -> float:
         x[x <= 0] = 0
         x[x > 0] = 1
@@ -97,4 +99,41 @@ ACTIVATION_DERIVATIVE = {
 class Gradient:
     def basic(velocity: list[float]|float, output:list[float], **kwargs) -> float|list[float]:
         return velocity * ACTIVATION_DERIVATIVE[kwargs["gradient"]](output)
+
+MINIMAL_ZERO = np.array([1e-9])
+ONE = np.array([1])
+
+class Loss:
+    def squaredError(output: list[float], outputExpected: float|list[float]) -> float:
+        return np.sum(0.5 * (outputExpected - output) ** 2)
+    
+    def crossEntropy(output: list[float], outputExpected: float|list[float]) -> float:
+        return -np.sum(outputExpected * np.log(output + 1e-9))
+    
+    def meanSquaredError(output: list[float], outputExpected: float|list[float]) -> float:
+        return np.mean((outputExpected - output) ** 2)
+    
+    def meanAbsoluteError(output: list[float], outputExpected: float|list[float]) -> float:
+        return np.mean(np.abs(outputExpected - output))
+
+    def meanAbsolutePercentageError(output: list[float], outputExpected: float|list[float]) -> float:
+        return np.mean(np.abs((outputExpected + MINIMAL_ZERO - output) / (outputExpected + MINIMAL_ZERO))) * 100
+    
+    def meanSquaredLogarithmicError(output: list[float], outputExpected: float|list[float]) -> float:
+        return np.mean((np.log(output + ONE) - np.log(outputExpected + ONE)) ** 2)
+    
+    def squaredHinge(output: list[float], outputExpected: float|list[float]) -> float:
+        return np.mean((1 - outputExpected * output) ** 2)
+    
+    def hinge(output: list[float], outputExpected: float|list[float]) -> float:
+        return np.mean(1 - outputExpected * output)
+    
+    def categoricalHinge(output: list[float], outputExpected: float|list[float]) -> float:
+        return np.mean(np.maximum(1 - outputExpected * output, 0))
+    
+    def logCosh(output: list[float], outputExpected: float|list[float]) -> float:
+        return np.mean(np.log(np.cosh(output - outputExpected)))
+    
+    def categoricalCrossEntropy(output: list[float], outputExpected: float|list[float]) -> float:
+        return -np.sum(outputExpected * np.log(output + 1e-9))
 
