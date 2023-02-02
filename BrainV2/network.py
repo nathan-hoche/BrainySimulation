@@ -1,10 +1,8 @@
 from BrainV2.layers.Dense import Dense
-from BrainV2.utils import Loss
-import numpy as np
 import matplotlib.pyplot as plt
 
 class network():
-    def __init__(self, learningRate=1.0, lossFunc=Loss.squaredError) -> None:
+    def __init__(self, learningRate=1.0, lossFunc=None) -> None:
         self.layers = []
         self.lossFunc = lossFunc
         self.learningRate = learningRate
@@ -27,7 +25,8 @@ class network():
 
     def train(self, inputList: list[float], outputExpected: float|list[float]) -> None:
         output = self.calc(inputList)
-        self.losses.append(self.lossFunc(output, outputExpected))
+        if (self.lossFunc is not None):
+            self.losses.append(self.lossFunc(output, outputExpected))
         velocity = None
         for layer in reversed(self.layers):
             velocity = layer.updateWeight(outputExpected, velocity)
@@ -40,5 +39,8 @@ class network():
             x += 1
     
     def displayLoss(self):
+        if (self.lossFunc is None):
+            print("No loss function setted.")
+            return
         plt.plot(self.losses)
         plt.show()
