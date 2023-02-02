@@ -1,5 +1,4 @@
-from BrainV2.utils import Activation
-from BrainV2.utils import Gradient
+from BrainV2.utils import Activation, Gradient, Loss
 from BrainV2.network import network
 from matplotlib import pyplot as plt
 import numpy as np
@@ -41,7 +40,7 @@ def plot(func, h=0.01):
 
 class sample():
     def __init__(self) -> None:
-        self.XOR = network(learningRate=0.1)
+        self.XOR = network(learningRate=0.2, lossFunc=Loss.squaredError)
         self.XOR.addNewLayer(Activation.sigmoid, Gradient.basic, 16, 2)
         self.XOR.addNewLayer(Activation.sigmoid, Gradient.basic, 1)
         self.XOR.printLayers()
@@ -49,8 +48,10 @@ class sample():
     def train(self, isTest:bool=False):
         if isTest == True:
             return
-        for _ in range(10000):
-            self.XOR.train([[0, 0], [0, 1], [1, 0], [1, 1]], [[0], [1], [1], [0]])
+        X = [[0, 0], [0, 1], [1, 0], [1, 1]]
+        Y = [[0], [1], [1], [0]]
+
+        self.XOR.train(X, Y, epochs=5000)
         self.XOR.displayLoss()
 
     def test(self, isTest:bool=False):

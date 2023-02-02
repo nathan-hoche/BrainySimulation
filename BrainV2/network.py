@@ -10,6 +10,8 @@ class network():
         self.losses = []
         pass
 
+    #### LAYERS ####
+
     def addNewLayer(self, actFunc, gradient, nbNeuron, nbInput=None) -> None:
         if nbInput is None:
             nbInput = self.layers[-1].size()
@@ -17,20 +19,29 @@ class network():
         self.layers.append(newLayer)
         self.isFirst = False
 
+    #### CALCULATION ####
+
     def calc(self, inputList: list[float]) -> list[float]:
         output = inputList
         for layer in self.layers:
             output = layer.calc(output)
         return output
 
-    def train(self, inputList: list[float], outputExpected: float|list[float]) -> None:
-        output = self.calc(inputList)
-        if (self.lossFunc is not None):
-            self.losses.append(self.lossFunc(output, outputExpected))
-        velocity = None
-        for layer in reversed(self.layers):
-            velocity = layer.updateWeight(outputExpected, velocity)
+    #### TRAINING ####
+
+    def train(self, inputList: list[float], outputExpected: float|list[float], epochs:int=100) -> None:
+        loss = None
+        print("epochs:", epochs)
+        for i in range(epochs):
+            output = self.calc(inputList)
+            if (self.lossFunc is not None):
+                loss = self.lossFunc(output, outputExpected)
+                self.losses.append(loss)
+            velocity = None
+            for layer in reversed(self.layers):
+                velocity = layer.updateWeight(outputExpected, velocity)
     
+    #### INFORMATION ####
     def printLayers(self):
         print("Network:")
         x = 0
