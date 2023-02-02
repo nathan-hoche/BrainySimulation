@@ -11,17 +11,44 @@ python3 main.py [sample]
 
 # List of content:
 
-| Type | ACTUAL | TO ADD |
-| ------ | ------ | ------ |
-| Layer | Dense | Convolution, Pooling, Dropout | 
-| Activation | Basic, ReLu, LeakyReLu, Sigmoid, Tanh, Softmax, Softplus, Softsign, Selu, elu, exponential | |
-| Gradient | Basic, Hebbian, Oja, SGD | Adam, ... |
+## BrainV1: perceptron
 
-# Sample
-- [x] basicNeuron
-- [x] basicNetwork
-- [x] patternRecognition
-- [x] XOR
+The first version of the brain is a simple perceptron using Hebbian or Oja learning rule. It cannot be used for more complexe problem (like XOR).
+For the implematation, calculus are made without numpy. It's just a simple python list and classes for neurons, the objectif is to understand how the brain work.
+
+> This version is a good start to understand how perceptron works. But it's not a good way to make a neural network. All implementation is made without any library, and the code is well developped to be understandable (but not optimized).
+
+### Table of content:
+
+| Type | Done | TODO |
+| ------ | ------ | ------ |
+| Learning rule | Hebbian, Oja | |
+| Activation function | basic, reLu, leakyReLu, sigmoid, tanh, softmax, softplus, softsign, selu, elu, exponential | |
+| Layer | Dense | |
+
+### List of sample:
+
+| Sample | Description |
+| ------ | ------ |
+| basicNeuron | A simple neuron with a Hebbian learning rule |
+| basicNetwork | A simple network with a Hebbian learning rule |
+| patternRecognition | A simple network with a Hebbian learning rule and a pattern recognition |
+
+> This version is currently not maintained. Due to the fact the second version is more used.
+
+## BrainV2: neural network
+
+The second version of the brain is a neural network and can be used for deep learning. It can be used for more complexe problem (like XOR). The major difference is the used of gradient descent to train the network. For the implematation, calculus are made with numpy, all layers use numpy array.
+
+### Table of content:
+
+| Type | Done | TODO |
+| ------ | ------ | ------ |
+| Gradient Descent | Basic | sgd, adam, etc|
+| Activation function | reLu, sigmoid | basic, leakyReLu, tanh, softmax, softplus, softsign, selu, elu, exponential |
+| Layer | Dense | Flatten, Dropout, Conv2D, MaxPooling, etc |
+
+> This version is currently in development.
 
 # How to use this project:
 If you want to use this project, there is two way to do it:

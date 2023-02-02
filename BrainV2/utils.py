@@ -86,16 +86,6 @@ ACTIVATION_DERIVATIVE = {
 }
     
 class Gradient:
-    # def basic(outputExpected:float, output:float, input:float, learningRate: float, **kwargs) -> float:
-    #     return learningRate * (outputExpected - output) * input, 0
-
-    # def hebbian(outputExpected:float, output:float, input:float, learningRate: float, **kwargs) -> float:
-    #     return learningRate * np.dot(outputExpected - output, input) * input, 0
-    
-    # def oja(outputExpected:float, output:float, input:float, learningRate: float, **kwargs) -> float:
-    #     x = np.dot(outputExpected - output, input)
-    #     return learningRate * (x * input - x * x * output), 0
-
-    def sgd(velocity: list[float]|float, output:list[float], **kwargs) -> float|list[float]:
+    def basic(velocity: list[float]|float, output:list[float], **kwargs) -> float|list[float]:
         return velocity * ACTIVATION_DERIVATIVE[kwargs["gradient"]](output)
 
