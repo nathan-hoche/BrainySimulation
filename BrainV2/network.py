@@ -1,4 +1,5 @@
 from BrainV2.layers.Dense import Dense
+from BrainV2.layers.Flatten import Flatten
 import matplotlib.pyplot as plt
 
 class network():
@@ -12,12 +13,15 @@ class network():
 
     #### LAYERS ####
 
-    def addNewLayer(self, actFunc, gradient, nbNeuron, nbInput=None) -> None:
+    def addDenseLayer(self, actFunc, gradient, nbNeuron, nbInput=None) -> None:
         if nbInput is None:
             nbInput = self.layers[-1].size()
         newLayer = Dense(actFunc, gradient, nbNeuron, nbInput, self.learningRate, self.isFirst)
         self.layers.append(newLayer)
         self.isFirst = False
+    
+    def addFlattenLayer(self) -> None:
+        self.layers.append(Flatten(self.layers[-1].size()))
 
     #### CALCULATION ####
 
@@ -32,7 +36,7 @@ class network():
     def train(self, inputList: list[float], outputExpected: float|list[float], epochs:int=100) -> None:
         loss = None
         print("epochs:", epochs)
-        for i in range(epochs):
+        for _ in range(epochs):
             output = self.calc(inputList)
             if (self.lossFunc is not None):
                 loss = self.lossFunc(output, outputExpected)

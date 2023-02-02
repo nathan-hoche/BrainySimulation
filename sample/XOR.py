@@ -41,8 +41,8 @@ def plot(func, h=0.01):
 class sample():
     def __init__(self) -> None:
         self.XOR = network(learningRate=0.2, lossFunc=Loss.squaredError)
-        self.XOR.addNewLayer(Activation.sigmoid, Gradient.basic, 16, 2)
-        self.XOR.addNewLayer(Activation.sigmoid, Gradient.basic, 1)
+        self.XOR.addDenseLayer(Activation.sigmoid, Gradient.basic, 16, 2)
+        self.XOR.addDenseLayer(Activation.sigmoid, Gradient.basic, 1)
         self.XOR.printLayers()
 
     def train(self, isTest:bool=False):
@@ -51,7 +51,7 @@ class sample():
         X = [[0, 0], [0, 1], [1, 0], [1, 1]]
         Y = [[0], [1], [1], [0]]
 
-        self.XOR.train(X, Y, epochs=5000)
+        self.XOR.train(X, Y, epochs=1)
         self.XOR.displayLoss()
 
     def test(self, isTest:bool=False):
