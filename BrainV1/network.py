@@ -1,4 +1,4 @@
-from Brain.neuron import neuron
+from BrainV1.neuron import neuron
 
 class layers():
     def __init__(self, actFunc, lossFunc, nbNeuron, nbInput, learningRate=1.0) -> None:
@@ -23,10 +23,12 @@ class layers():
         v = []
         if type(outputExpected) is list:
             for i in range(len(self.neurons)):
-                v.append(self.neurons[i].updateWeight(self.output[i], outputExpected[i], self.inputList, velocity[i]))
+                for x in range(len(velocity)):
+                    v.append(self.neurons[i].updateWeight(self.output[i], outputExpected[i], self.inputList, velocity[x]))
         else:
             for i in range(len(self.neurons)):
-                v.append(self.neurons[i].updateWeight(self.output[i], outputExpected, self.inputList, velocity[0]))
+                for x in range(len(velocity)):
+                    v.append(self.neurons[i].updateWeight(self.output[i], outputExpected, self.inputList, velocity[x]))
         return v
 
     def printWeight(self) -> None:
@@ -43,13 +45,13 @@ class network():
             nbInput = self.layers[-1].size()
         newLayer = layers(actFunc, lossFunc, nbNeuron, nbInput, self.learningRate)
         self.layers.append(newLayer)
-    
+
     def calc(self, inputList: list[float]) -> list[float]:
         output = inputList
         for layer in self.layers:
             output = layer.calc(output)
         return output
-    
+
     def train(self, inputList: list[float], outputExpected: float|list[float]) -> None:
         self.calc(inputList)
         velocity = [0]

@@ -15,13 +15,13 @@ python3 main.py [sample]
 | ------ | ------ | ------ |
 | Layer | Dense | Convolution, Pooling, Dropout | 
 | Activation | Basic, ReLu, LeakyReLu, Sigmoid, Tanh, Softmax, Softplus, Softsign, Selu, elu, exponential | |
-| Gradient | Basic, Hebbian, Oja | SGD, Adam, ... |
+| Gradient | Basic, Hebbian, Oja, SGD | Adam, ... |
 
 # Sample
 - [x] basicNeuron
 - [x] basicNetwork
 - [x] patternRecognition
-- [ ] XOR
+- [x] XOR
 
 # How to use this project:
 If you want to use this project, there is two way to do it:

@@ -6,7 +6,7 @@ class Activation:
         return 0 if x < 0 else 1
 
     def reLu(x:float) -> float:
-        return max(0, x)
+        return np.maximum(0, x)
     
     def leakyReLu(x:float) -> float:
         return 0.01 * x if x < 0 else x
@@ -40,7 +40,9 @@ class Derivative:
         return 0
     
     def reLu(x:float) -> float:
-        return 0 if x < 0 else 1
+        x[x <= 0] = 0
+        x[x > 0] = 1
+        return x
     
     def leakyReLu(x:float) -> float:
         return 0.01 if x < 0 else 1
@@ -84,20 +86,16 @@ ACTIVATION_DERIVATIVE = {
 }
     
 class Gradient:
-    def basic(outputExpected:float, output:float, input:float, learningRate: float, **kwargs) -> float:
-        return learningRate * (outputExpected - output) * input, 0
+    # def basic(outputExpected:float, output:float, input:float, learningRate: float, **kwargs) -> float:
+    #     return learningRate * (outputExpected - output) * input, 0
 
-    def hebbian(outputExpected:float, output:float, input:float, learningRate: float, **kwargs) -> float:
-        return learningRate * np.dot(outputExpected - output, input) * input, 0
+    # def hebbian(outputExpected:float, output:float, input:float, learningRate: float, **kwargs) -> float:
+    #     return learningRate * np.dot(outputExpected - output, input) * input, 0
     
-    def oja(outputExpected:float, output:float, input:float, learningRate: float, **kwargs) -> float:
-        x = np.dot(outputExpected - output, input)
-        return learningRate * (x * input - x * x * output), 0
+    # def oja(outputExpected:float, output:float, input:float, learningRate: float, **kwargs) -> float:
+    #     x = np.dot(outputExpected - output, input)
+    #     return learningRate * (x * input - x * x * output), 0
 
-    def sgd(outputExpected:float, output:float, input:float, learningRate: float, **kwargs) -> float:
-        momentum = kwargs.get("momentum", 0.9)
-        velocity = kwargs.get("velocity", 0)
-        gradient = kwargs.get("gradient", Activation.basic)
-        #print("momentum", momentum, "velocity", velocity, "gradient", gradient, "input", input, "output", output)
-        velocity = momentum * velocity + learningRate * ACTIVATION_DERIVATIVE[gradient](output)
-        return - learningRate * input * velocity, velocity
+    def sgd(velocity: list[float]|float, output:list[float], **kwargs) -> float|list[float]:
+        return velocity * ACTIVATION_DERIVATIVE[kwargs["gradient"]](output)
+
