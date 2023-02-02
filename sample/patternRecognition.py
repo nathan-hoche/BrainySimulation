@@ -1,6 +1,6 @@
-from Brain.utils import Activation
-from Brain.utils import Gradient
-from Brain.network import network
+from BrainV1.utils import Activation
+from BrainV1.utils import Gradient
+from BrainV1.network import network
 import os
 
 def readDir():

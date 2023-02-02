@@ -1,6 +1,6 @@
-from Brain.neuron import neuron
-from Brain.utils import Activation
-from Brain.utils import Gradient
+from BrainV1.neuron import neuron
+from BrainV1.utils import Activation
+from BrainV1.utils import Gradient
 
 class sample():
     def __init__(self) -> None:

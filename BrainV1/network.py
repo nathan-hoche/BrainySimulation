@@ -19,20 +19,17 @@ class layers():
             self.output.append(neuron.calc(inputList))
         return self.output
     
-    def updateWeight(self, outputExpected: float|list[float], velocity:list[float]) -> None:
-        v = []
+    def updateWeight(self, outputExpected: float) -> None:
         if type(outputExpected) is list:
             for i in range(len(self.neurons)):
-                for x in range(len(velocity)):
-                    v.append(self.neurons[i].updateWeight(self.output[i], outputExpected[i], self.inputList, velocity[x]))
+                self.neurons[i].updateWeight(self.output[i], outputExpected[i], self.inputList)
         else:
             for i in range(len(self.neurons)):
-                for x in range(len(velocity)):
-                    v.append(self.neurons[i].updateWeight(self.output[i], outputExpected, self.inputList, velocity[x]))
-        return v
-
+                self.neurons[i].updateWeight(self.output[i], outputExpected, self.inputList)
+        
     def printWeight(self) -> None:
         self.neurons[0].printWeight()
+
 
 class network():
     def __init__(self, learningRate=1.0) -> None:
@@ -45,20 +42,17 @@ class network():
             nbInput = self.layers[-1].size()
         newLayer = layers(actFunc, lossFunc, nbNeuron, nbInput, self.learningRate)
         self.layers.append(newLayer)
-
+    
     def calc(self, inputList: list[float]) -> list[float]:
         output = inputList
         for layer in self.layers:
             output = layer.calc(output)
         return output
-
-    def train(self, inputList: list[float], outputExpected: float|list[float]) -> None:
+    
+    def train(self, inputList: list[float], outputExpected: float) -> None:
         self.calc(inputList)
-        velocity = [0]
-        if (type(outputExpected) is list):
-            velocity = [0] * len(outputExpected)
         for layer in reversed(self.layers):
-            velocity = layer.updateWeight(outputExpected, velocity)
+            layer.updateWeight(outputExpected)
     
     def printWeight(self):
         self.layers[0].printWeight()
