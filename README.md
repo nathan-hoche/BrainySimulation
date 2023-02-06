@@ -47,7 +47,9 @@ The second version of the brain is a neural network and can be used for deep lea
 | Gradient Descent | Basic | sgd, adam, etc|
 | Activation function | basic, reLu, leakyReLu, sigmoid, tanh, softmax, softplus, softsign | selu, elu, exponential |
 | Loss function | squaredError, crossEntropy, meanSquaredError, meanAbsoluteError, meanAbsolutePercentageError, meanSquaredLogarithmicError, squaredHinge, hinge, catagoricalHinge, logCosh, categoricalCrossEntropy | |
-| Layer | Dense | Flatten, Dropout, Conv2D, MaxPooling, etc |
+| Layer (General) | Dense, Flatten | Dropout, ... |
+| Layer (Convolutional) | MaxPooling1D, MaxPooling2D, AveragePooing1D, AveragePooling2D | Conv2D, GlobalMaxPooling2D, GlobalAveragePooling2D, ... |
+| Layer (Recurrent) | | SimpleRNN, LSTM, GRU, ConvLSTM2D, SimpleRNNCell, LSTMCell, GRUCell, ... |
 
 ### List of sample:
 

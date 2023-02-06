@@ -1,6 +1,6 @@
 import numpy as np
 
-class MaxPool2D():
+class AveragePool2D():
     def __init__(self, nbInput, pool_size=(2, 2), strides=None, padding=False) -> None:
         self.output = None
         self.input = None
@@ -28,7 +28,7 @@ class MaxPool2D():
         for i in range(self.pool_size[0]):
             for j in range(self.pool_size[1]):
                 res.append(inputList[y+i][x+j])
-        return max(res)
+        return sum(res) / len(res)
 
     def calc(self, inputList: list[float]) -> list[float]|float:
         self.output = []

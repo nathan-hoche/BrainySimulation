@@ -1,6 +1,9 @@
 from BrainV2.layers.Dense import Dense
 from BrainV2.layers.Flatten import Flatten
+from BrainV2.layers.MaxPool1D import MaxPool1D
 from BrainV2.layers.MaxPool2D import MaxPool2D
+from BrainV2.layers.AveragePool1D import AveragePool1D
+from BrainV2.layers.AveragePool2D import AveragePool2D
 import matplotlib.pyplot as plt
 
 class network():
@@ -30,6 +33,22 @@ class network():
         if nbInput is None:
             nbInput = self.layers[-1].size()
         self.layers.append(MaxPool2D(nbInput, pool_size, strides, padding))
+    
+    def addMaxPool1DLayer(self, pool_size=2, strides=None, padding=False, nbInput=None) -> None:
+        if nbInput is None:
+            nbInput = self.layers[-1].size()
+        self.layers.append(MaxPool1D(nbInput, pool_size, strides, padding))
+    
+    def addAveragePool2DLayer(self, pool_size=(2, 2), strides=None, padding=False, nbInput=None) -> None:
+        if nbInput is None:
+            nbInput = self.layers[-1].size()
+        self.layers.append(AveragePool2D(nbInput, pool_size, strides, padding))
+    
+    def addAveragePool1DLayer(self, pool_size=2, strides=None, padding=False, nbInput=None) -> None:
+        if nbInput is None:
+            nbInput = self.layers[-1].size()
+        self.layers.append(AveragePool1D(nbInput, pool_size, strides, padding))
+    
 
     #### CALCULATION ####
 
