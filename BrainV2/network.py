@@ -1,5 +1,6 @@
 from BrainV2.layers.Dense import Dense
 from BrainV2.layers.Flatten import Flatten
+from BrainV2.layers.MaxPool2D import MaxPool2D
 import matplotlib.pyplot as plt
 
 class network():
@@ -20,8 +21,15 @@ class network():
         self.layers.append(newLayer)
         self.isFirst = False
     
-    def addFlattenLayer(self) -> None:
-        self.layers.append(Flatten(self.layers[-1].size()))
+    def addFlattenLayer(self, nbInput=None) -> None:
+        if nbInput is None:
+            nbInput = self.layers[-1].size()
+        self.layers.append(Flatten(nbInput))
+    
+    def addMaxPool2DLayer(self, pool_size=(2, 2), strides=None, padding=False, nbInput=None) -> None:
+        if nbInput is None:
+            nbInput = self.layers[-1].size()
+        self.layers.append(MaxPool2D(nbInput, pool_size, strides, padding))
 
     #### CALCULATION ####
 
