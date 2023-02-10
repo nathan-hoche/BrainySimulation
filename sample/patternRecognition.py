@@ -4,7 +4,7 @@ from BrainV1.network import network
 import os
 
 def readDir():
-    dir = os.listdir("Test/numbers")
+    dir = os.listdir("Data/numbers")
     All_Test = {}
     for file in dir:
         if file.find(".txt") != -1:
