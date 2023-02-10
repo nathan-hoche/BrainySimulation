@@ -1,9 +1,9 @@
-from BrainV2.layers.MaxPool1D import MaxPool1D
+from BrainV2.layers.AveragePool1D import AveragePool1D
 
 class test():
     def __init__(self) -> None:
         self.nets = {}
-        self.nets["Basic"] = {"net": MaxPool1D(1, pool_size=2), "result": [1, 3, 5, 7, 9, 11, 13, 15]}
+        self.nets["Basic"] = {"net": AveragePool1D(1, pool_size=2), "result": [0.5, 2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5]}
 
         self.INPUT = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 

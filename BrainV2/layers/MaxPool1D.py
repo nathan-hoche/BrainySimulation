@@ -11,7 +11,7 @@ class MaxPool1D():
         pass
 
     def __str__(self) -> str:
-        return "MaxPool2D"
+        return "MaxPoolD"
 
     def size(self) -> int:
         return self.nbInput

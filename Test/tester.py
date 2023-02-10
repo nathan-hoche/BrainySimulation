@@ -50,10 +50,15 @@ def loadAllTest() -> object:
 
 def main():
     MODULE, MODULE_CRASHED = loadAllTest()
+    TOTAL = {"success": 0, "failed": 0, "total": 0, "crashed": 0}
     for module in MODULE:
-        print("Test: ", module)
+        print("Test: ", module, "\n")
         result = MODULE[module].test()
-        print(result)
+        print("\nRESULT:", result)
+        for key in result.keys():
+            TOTAL[key] += result[key]
+        print("\n=======================\n")
+    print("FINAL RESULT:", TOTAL)
 
 if __name__ == "__main__":
     main()

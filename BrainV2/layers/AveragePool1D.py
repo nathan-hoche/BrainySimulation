@@ -11,7 +11,7 @@ class AveragePool1D():
         pass
 
     def __str__(self) -> str:
-        return "MaxPool2D"
+        return "AveragePoolD"
 
     def size(self) -> int:
         return self.nbInput
@@ -25,7 +25,7 @@ class AveragePool1D():
 
     def getPoolMax(self, inputList: list[float], x: int) -> float:
         res = []
-        for i in range(self.pool_size[0]):
+        for i in range(self.pool_size):
             res.append(inputList[x+i])
         return sum(res) / len(res)
 
@@ -33,7 +33,7 @@ class AveragePool1D():
         self.output = []
         x = 0
         while x + self.pool_size -1 < len(inputList):
-            self.output[-1].append(self.getPoolMax(inputList, x))
+            self.output.append(self.getPoolMax(inputList, x))
             x += self.strides
         self.output = np.array(self.output)
         return self.output
