@@ -3,9 +3,9 @@ from BrainV2.layers.MaxPool1D import MaxPool1D
 class test():
     def __init__(self) -> None:
         self.nets = {}
-        self.nets["Basic"] = {"net": MaxPool1D(1, pool_size=2), "result": [1, 3, 5, 7, 9, 11, 13, 15]}
+        self.nets["Basic"] = {"net": MaxPool1D(1, pool_size=2), "result": [[1, 3, 5, 7, 9, 11, 13, 15]]}
 
-        self.INPUT = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+        self.INPUT = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]]
 
     def test(self, isTest:bool=False):
         if isTest == True:

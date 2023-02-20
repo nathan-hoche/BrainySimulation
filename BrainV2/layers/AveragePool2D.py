@@ -34,13 +34,15 @@ class AveragePool2D():
         self.output = []
         x = 0
         y = 0 
-        while y + self.pool_size[0] -1 < len(inputList):
+        for inpt in inputList:
             self.output.append([])
-            while x + self.pool_size[1] -1 < len(inputList[y]):
-                self.output[-1].append(self.getPoolMax(inputList, x, y))
-                x += self.strides[1]
-            y += self.strides[0]
-            x = 0
+            while y + self.pool_size[0] -1 < len(inpt):
+                self.output[-1].append([])
+                while x + self.pool_size[1] -1 < len(inpt[y]):
+                    self.output[-1][-1].append(self.getPoolMax(inpt, x, y))
+                    x += self.strides[1]
+                y += self.strides[0]
+                x = 0
         self.output = np.array(self.output)
         return self.output
 

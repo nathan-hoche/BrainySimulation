@@ -32,9 +32,11 @@ class AveragePool1D():
     def calc(self, inputList: list[float]) -> list[float]|float:
         self.output = []
         x = 0
-        while x + self.pool_size -1 < len(inputList):
-            self.output.append(self.getPoolMax(inputList, x))
-            x += self.strides
+        for inpt in inputList:
+            self.output.append([])
+            while x + self.pool_size -1 < len(inpt):
+                self.output[-1].append(self.getPoolMax(inpt, x))
+                x += self.strides
         self.output = np.array(self.output)
         return self.output
 
